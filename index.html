@@ -490,7 +490,103 @@
         .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--glass-border); cursor: pointer; transition: var(--transition); }
         .dot.active { background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
 
-        /* SECTION 8: Meet the Instructor */
+        /* SECTION 7.5: Prompt Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .prompt-card {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: var(--transition);
+        }
+
+        .prompt-card:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .prompt-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .prompt-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            position: relative;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prompt-box-title {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            color: var(--violet);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .prompt-text {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.5;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .copy-prompt-btn {
+            background: rgba(0, 245, 255, 0.1);
+            color: var(--cyan);
+            border: 1px solid var(--cyan);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            align-self: flex-start;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-prompt-btn:hover {
+            background: var(--cyan);
+            color: var(--base-bg);
+        }
+
+        /* SECTION 8: Facebook Community Embed */
+        .fb-embed-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            margin-top: 20px;
+        }
+        .fb-iframe-container {
+            background: #FFFFFF;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.15);
+            max-width: 100%;
+        }
+
+        /* SECTION 9: Meet the Instructor */
         .about-container { display: flex; align-items: center; gap: 60px; }
         .about-img {
             flex: 0 0 350px;
@@ -513,7 +609,7 @@
         .social-icons a { font-size: 1.5rem; color: var(--text-muted); transition: var(--transition); }
         .social-icons a:hover { color: var(--cyan); transform: scale(1.1); }
 
-        /* SECTION 9: FAQ */
+        /* SECTION 10: FAQ */
         .faq-container { max-width: 800px; margin: 0 auto; }
         .faq-item { margin-bottom: 15px; }
         .faq-question {
@@ -533,7 +629,7 @@
         }
         .faq-answer p { padding: 20px 0; }
 
-        /* SECTION 10: Final CTA */
+        /* SECTION 11: Final CTA */
         #final-cta {
             padding: 100px 20px;
             text-align: center;
@@ -550,7 +646,7 @@
         .final-cta-h2 { font-size: 3rem; margin-bottom: 20px; }
         .final-cta-sub { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; max-width: 600px; margin-inline: auto; }
 
-        /* SECTION 11: Footer */
+        /* SECTION 12: Footer */
         footer { background: #050812; padding: 60px 0 20px 0; border-top: 1px solid var(--glass-border); }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px; }
         .footer-col h4 { font-size: 1.2rem; margin-bottom: 20px; color: white; }
@@ -563,8 +659,9 @@
             color: var(--text-muted); font-size: 0.9rem;
         }
         
-        /* Success Message Form */
+        /* Success/Error Message Form */
         .success-msg { display: none; color: #10B981; margin-top: 15px; font-weight: bold; background: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 8px; text-align: center;}
+        .error-msg { display: none; color: #EF4444; margin-top: 15px; font-weight: bold; background: rgba(239, 68, 68, 0.1); padding: 10px; border-radius: 8px; text-align: center;}
 
         /* Responsive Design */
         @media (max-width: 992px) {
@@ -613,9 +710,9 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#community">Community</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#lead-magnet">Courses</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#footer">Contact</a></li>
                 <li><a href="#lead-magnet" class="btn btn-cyan" style="padding: 8px 20px;">Get Started Free</a></li>
             </ul>
@@ -756,8 +853,9 @@
                         <input type="text" id="optinName" placeholder="First Name" required class="optin-input">
                         <input type="email" id="optinEmail" placeholder="Email Address" required class="optin-input">
                     </div>
-                    <button type="submit" class="btn btn-cyan" style="width: 100%;">Send Me the Free Guide &rarr;</button>
+                    <button type="submit" class="btn btn-cyan" id="submitBtn" style="width: 100%;">Send Me the Free Guide &rarr;</button>
                     <div id="successMsg" class="success-msg"><i class="fas fa-check-circle"></i> Success! Check your inbox shortly.</div>
+                    <div id="errorMsg" class="error-msg"><i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try again.</div>
                     <p class="spam-note">🔒 No spam. Unsubscribe anytime.</p>
                 </form>
             </div>
@@ -838,6 +936,67 @@
                 
                 <div class="carousel-dots" id="carousel-dots">
                     </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section-padding">
+        <div class="container">
+            <h2 class="section-title reveal">Prompt Engineering in Action</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-top: -40px; margin-bottom: 40px;" class="reveal">See the exact prompts used to generate these images.</p>
+            
+            <div class="gallery-grid reveal">
+                
+                <div class="prompt-card glass">
+                    <img src="https://via.placeholder.com/400x400/1A2035/00F5FF?text=Your+Image+Here" alt="AI Generated Art" class="prompt-img">
+                    <div class="prompt-box">
+                        <div class="prompt-box-title">Midjourney v6</div>
+                        <div class="prompt-text" id="prompt1">
+                            A hyper-realistic, surreal cinematic shot of a futuristic Colombo city floating in the clouds, neon cyan and violet lighting, highly detailed, 8k resolution, volumetric fog --ar 16:9 --v 6.0
+                        </div>
+                        <button class="copy-prompt-btn" onclick="copyPrompt('prompt1', this)">
+                            <i class="far fa-copy"></i> Copy Prompt
+                        </button>
+                    </div>
+                </div>
+
+                <div class="prompt-card glass">
+                    <img src="https://via.placeholder.com/400x400/1A2035/9B5DE5?text=Your+Image+Here" alt="AI Generated Art" class="prompt-img">
+                    <div class="prompt-box">
+                        <div class="prompt-box-title">DALL-E 3</div>
+                        <div class="prompt-text" id="prompt2">
+                            A surreal digital art portrait of an android dreaming, double exposure effect with a lush glowing jungle inside the silhouette, cinematic lighting, masterpiece.
+                        </div>
+                        <button class="copy-prompt-btn" onclick="copyPrompt('prompt2', this)">
+                            <i class="far fa-copy"></i> Copy Prompt
+                        </button>
+                    </div>
+                </div>
+
+                <div class="prompt-card glass">
+                    <img src="https://via.placeholder.com/400x400/1A2035/10B981?text=Your+Image+Here" alt="AI Generated Art" class="prompt-img">
+                    <div class="prompt-box">
+                        <div class="prompt-box-title">Midjourney v6</div>
+                        <div class="prompt-text" id="prompt3">
+                            Cinematic extreme close-up of a glowing mechanical eye, reflecting a collapsing star, surreal sci-fi concept art, dramatic shadows, photorealistic --ar 1:1 --style raw
+                        </div>
+                        <button class="copy-prompt-btn" onclick="copyPrompt('prompt3', this)">
+                            <i class="far fa-copy"></i> Copy Prompt
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="community" class="section-padding" style="background: rgba(0,0,0,0.2);">
+        <div class="container">
+            <h2 class="section-title reveal">Latest from the AI With J Page</h2>
+            <div class="glass reveal fb-embed-wrapper">
+                <div class="fb-iframe-container">
+                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook&tabs=timeline&width=500&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="500" height="600" style="border:none;overflow:hidden; max-width: 100%;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
             </div>
         </div>
     </section>
@@ -1000,7 +1159,6 @@
             navLinks.classList.toggle('active');
         });
 
-        // Close mobile menu on click
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
@@ -1013,10 +1171,10 @@
             let particle = document.createElement('div');
             particle.classList.add('particle');
             
-            let size = Math.random() * 5 + 2; // 2px to 7px
-            let left = Math.random() * 100; // 0% to 100%
-            let delay = Math.random() * 10; // 0s to 10s delay
-            let duration = Math.random() * 10 + 10; // 10s to 20s
+            let size = Math.random() * 5 + 2; 
+            let left = Math.random() * 100; 
+            let delay = Math.random() * 10; 
+            let duration = Math.random() * 10 + 10; 
             
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
@@ -1048,17 +1206,17 @@
             let typeSpeed = isDeleting ? 50 : 100;
 
             if (!isDeleting && charIndex === currentWord.length) {
-                typeSpeed = 2000; // Pause at end of word
+                typeSpeed = 2000; 
                 isDeleting = true;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 wordIndex = (wordIndex + 1) % words.length;
-                typeSpeed = 500; // Pause before new word
+                typeSpeed = 500; 
             }
 
             setTimeout(type, typeSpeed);
         }
-        type(); // Init
+        type();
 
         // --- Scroll Reveal & Counter Animation ---
         const reveals = document.querySelectorAll('.reveal');
@@ -1073,12 +1231,11 @@
                 
                 entry.target.classList.add('active');
                 
-                // Trigger counter if the stats section is revealed
                 if (entry.target.classList.contains('why-stats') || entry.target.querySelector('.counter')) {
                     if (!counterStarted) {
                         counters.forEach(counter => {
                             const target = +counter.getAttribute('data-target');
-                            const increment = target / 50; // Speed adjustment
+                            const increment = target / 50; 
                             
                             function updateCounter() {
                                 const current = +counter.innerText;
@@ -1105,9 +1262,8 @@
         const testimonialCards = document.querySelectorAll('.testimonial-card');
         const dotsContainer = document.getElementById('carousel-dots');
         let currentIndex = 0;
-        let cardWidth = testimonialCards[0].offsetWidth + 30; // Including gap
+        let cardWidth = testimonialCards[0].offsetWidth + 30; 
         
-        // Generate dots based on view
         const getVisibleCardsCount = () => window.innerWidth > 992 ? 3 : 1;
         let totalDots = testimonialCards.length - getVisibleCardsCount() + 1;
         
@@ -1129,7 +1285,6 @@
             cardWidth = testimonialCards[0].offsetWidth + 30;
             carousel.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
             
-            // Update dots
             document.querySelectorAll('.dot').forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentIndex);
             });
@@ -1140,10 +1295,8 @@
             updateCarousel();
         }
 
-        // AutoPlay Carousel
         setInterval(() => {
             if(window.innerWidth > 992) {
-                // Desktop: don't auto-slide if all fit
                 if(testimonialCards.length <= 3) return;
             }
             currentIndex++;
@@ -1177,32 +1330,78 @@
             });
         });
 
-        // --- Form Validation (Frontend Only) ---
+        // --- Form Validation & Backend Fetch ---
         const optinForm = document.getElementById('optinForm');
         const successMsg = document.getElementById('successMsg');
+        const errorMsg = document.getElementById('errorMsg');
+        const submitBtn = document.getElementById('submitBtn');
         
         optinForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevent page reload
+            e.preventDefault(); 
             
-            // Basic visual state change
-            const btn = optinForm.querySelector('button');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-            btn.style.opacity = '0.7';
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
             
-            // Simulate network request
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.opacity = '1';
-                optinForm.reset();
-                successMsg.style.display = 'block';
-                
-                // Hide message after 4 seconds
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            submitBtn.style.opacity = '0.7';
+            submitBtn.disabled = true;
+            
+            const name = document.getElementById('optinName').value;
+            const email = document.getElementById('optinEmail').value;
+
+            fetch('subscribe.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: name, email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    optinForm.reset();
+                    successMsg.style.display = 'block';
+                } else {
+                    errorMsg.style.display = 'block';
+                    errorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + (data.message || 'Error submitting form.');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                errorMsg.style.display = 'block';
+            })
+            .finally(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.style.opacity = '1';
+                submitBtn.disabled = false;
+
                 setTimeout(() => {
                     successMsg.style.display = 'none';
-                }, 4000);
-            }, 1500);
+                    errorMsg.style.display = 'none';
+                }, 5000);
+            });
         });
+
+        // --- Copy Prompt Function ---
+        function copyPrompt(elementId, btnElement) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalHTML = btnElement.innerHTML;
+                btnElement.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                btnElement.style.background = 'var(--cyan)';
+                btnElement.style.color = 'var(--base-bg)';
+                
+                setTimeout(() => {
+                    btnElement.innerHTML = originalHTML;
+                    btnElement.style.background = 'rgba(0, 245, 255, 0.1)';
+                    btnElement.style.color = 'var(--cyan)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
 
     </script>
 </body>
