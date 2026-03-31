@@ -848,10 +848,10 @@
                     <li><strong>Bonus:</strong> AI Vocabulary Cheat Sheet included</li>
                 </ul>
                 
-                <form class="optin-form" id="optinForm">
+                <form class="optin-form" id="optinForm" action="https://formspree.io/f/xykbjzdw" method="POST">
                     <div class="form-row">
-                        <input type="text" id="optinName" placeholder="First Name" required class="optin-input">
-                        <input type="email" id="optinEmail" placeholder="Email Address" required class="optin-input">
+                        <input type="text" id="optinName" name="name" placeholder="First Name" required class="optin-input">
+                        <input type="email" id="optinEmail" name="email" placeholder="Email Address" required class="optin-input">
                     </div>
                     <button type="submit" class="btn btn-cyan" id="submitBtn" style="width: 100%;">Send Me the Free Guide &rarr;</button>
                     <div id="successMsg" class="success-msg"><i class="fas fa-check-circle"></i> Success! Check your inbox shortly.</div>
@@ -1330,7 +1330,7 @@
             });
         });
 
-        // --- Form Validation & Backend Fetch ---
+        // --- Form Validation & Backend Fetch (Formspree) ---
         const optinForm = document.getElementById('optinForm');
         const successMsg = document.getElementById('successMsg');
         const errorMsg = document.getElementById('errorMsg');
@@ -1346,29 +1346,34 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
             submitBtn.style.opacity = '0.7';
             submitBtn.disabled = true;
-            
-            const name = document.getElementById('optinName').value;
-            const email = document.getElementById('optinEmail').value;
 
-            fetch('subscribe.php', {
+            const formData = new FormData(optinForm);
+
+            // Fetch request sent to Formspree URL
+            fetch('https://formspree.io/f/xykbjzdw', {
                 method: 'POST',
+                body: formData,
                 headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name: name, email: email })
+                    'Accept': 'application/json'
+                }
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
+            .then(response => {
+                if (response.ok) {
                     optinForm.reset();
                     successMsg.style.display = 'block';
                 } else {
-                    errorMsg.style.display = 'block';
-                    errorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + (data.message || 'Error submitting form.');
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            errorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            errorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! There was a problem submitting your form.';
+                        }
+                        errorMsg.style.display = 'block';
+                    });
                 }
             })
-            .catch((error) => {
-                console.error('Error:', error);
+            .catch(error => {
+                errorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! There was a problem submitting your form.';
                 errorMsg.style.display = 'block';
             })
             .finally(() => {
